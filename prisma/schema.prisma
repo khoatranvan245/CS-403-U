@@ -1,0 +1,160 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ChiTietHoaDon {
+  HoaDon_ID  String  @db.VarChar(255)
+  HangHoa_ID String  @db.VarChar(255)
+  SoLuong    Int?
+  ThanhTien  Int?
+  DonGia     Int?
+  HangHoa    HangHoa @relation(fields: [HangHoa_ID], references: [HangHoa_ID], onDelete: NoAction, onUpdate: NoAction)
+  HoaDon     HoaDon  @relation(fields: [HoaDon_ID], references: [HoaDon_ID], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([HoaDon_ID, HangHoa_ID])
+}
+
+model ChiTietPhieuNhap {
+  PhieuNhap_ID String    @db.VarChar(255)
+  HangHoa_ID   String    @db.VarChar(255)
+  SoLuong      Int?
+  DonGia       Int?
+  HangHoa      HangHoa   @relation(fields: [HangHoa_ID], references: [HangHoa_ID], onDelete: NoAction, onUpdate: NoAction)
+  PhieuNhap    PhieuNhap @relation(fields: [PhieuNhap_ID], references: [PhieuNhap_ID], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([PhieuNhap_ID, HangHoa_ID])
+}
+
+model ChiTietPhieuXuatKho {
+  PhieuXuatKho_ID String       @db.VarChar(255)
+  HangHoa_ID      String       @db.VarChar(255)
+  SoLuong         Int?
+  DonGia          Int?
+  HangHoa         HangHoa      @relation(fields: [HangHoa_ID], references: [HangHoa_ID], onDelete: NoAction, onUpdate: NoAction)
+  PhieuXuatKho    PhieuXuatKho @relation(fields: [PhieuXuatKho_ID], references: [PhieuXuatKho_ID], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([PhieuXuatKho_ID, HangHoa_ID])
+}
+
+model HangHoa {
+  HangHoa_ID          String                @id @db.VarChar(255)
+  TenHang             String?               @db.VarChar(255)
+  ThuongHieu          String?               @db.VarChar(255)
+  GiaBan              Int?
+  GiaVon              Int?
+  TonKho              Int?
+  DonViTinh           String?               @db.VarChar(255)
+  NhomHang_ID         String?               @db.VarChar(255)
+  Kho_ID              String?               @db.VarChar(255)
+  NhaCungCap_ID       String?               @db.VarChar(255)
+  ChiTietHoaDon       ChiTietHoaDon[]
+  ChiTietPhieuNhap    ChiTietPhieuNhap[]
+  ChiTietPhieuXuatKho ChiTietPhieuXuatKho[]
+  Kho                 Kho?                  @relation(fields: [Kho_ID], references: [Kho_ID], onDelete: NoAction, onUpdate: NoAction)
+  NhaCungCap          NhaCungCap?           @relation(fields: [NhaCungCap_ID], references: [NhaCungCap_ID], onDelete: NoAction, onUpdate: NoAction)
+  NhomHang            NhomHang?             @relation(fields: [NhomHang_ID], references: [NhomHang_ID], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model HoaDon {
+  HoaDon_ID     String          @id @db.VarChar(255)
+  NhanVien_ID   String?         @db.VarChar(255)
+  KhachHang_ID  String?         @db.VarChar(255)
+  ThoiGian      DateTime?       @db.Timestamp(6)
+  TongTien      Int?
+  ChiTietHoaDon ChiTietHoaDon[]
+  KhachHang     KhachHang?      @relation(fields: [KhachHang_ID], references: [KhachHang_ID], onDelete: NoAction, onUpdate: NoAction)
+  NhanVien      NhanVien?       @relation(fields: [NhanVien_ID], references: [NhanVien_ID], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model KhachHang {
+  KhachHang_ID String   @id @db.VarChar(255)
+  TenKhachHang String?  @db.VarChar(255)
+  SDT          String?  @db.VarChar(11)
+  HoaDon       HoaDon[]
+}
+
+model Kho {
+  Kho_ID       String         @id @db.VarChar(255)
+  DiaChi       String?        @db.VarChar(255)
+  HangHoa      HangHoa[]
+  PhieuXuatKho PhieuXuatKho[]
+}
+
+model NhaCungCap {
+  NhaCungCap_ID String      @id @db.VarChar(255)
+  Ten           String?     @db.VarChar(255)
+  SDT           String?     @db.VarChar(11)
+  MaSoThue      String?     @db.VarChar(255)
+  HangHoa       HangHoa[]
+  PhieuChi      PhieuChi[]
+  PhieuNhap     PhieuNhap[]
+}
+
+model NhanVien {
+  NhanVien_ID  String         @id @db.VarChar(255)
+  Email        String?        @db.VarChar(255) @unique
+  MatKhau      String?        @db.VarChar(255)
+  HoaDon       HoaDon[]
+  PhieuChi     PhieuChi[]
+  PhieuLuong   PhieuLuong[]
+  PhieuNhap    PhieuNhap[]
+  PhieuXuatKho PhieuXuatKho[]
+}
+
+model NhomHang {
+  NhomHang_ID String    @id @db.VarChar(255)
+  TenNhomHang String?   @db.VarChar(255)
+  HangHoa     HangHoa[]
+}
+
+model PhieuChi {
+  PhieuChi_ID   String      @id @db.VarChar(255)
+  NhanVien_ID   String?     @db.VarChar(255)
+  NhaCungCap_ID String?     @db.VarChar(255)
+  GiaTri        Int?
+  ThoiGian      DateTime?   @db.Timestamp(6)
+  NhaCungCap    NhaCungCap? @relation(fields: [NhaCungCap_ID], references: [NhaCungCap_ID], onDelete: NoAction, onUpdate: NoAction)
+  NhanVien      NhanVien?   @relation(fields: [NhanVien_ID], references: [NhanVien_ID], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model PhieuLuong {
+  PhieuLuong_ID String    @id @db.VarChar(255)
+  NhanVien_ID   String?   @db.VarChar(255)
+  LuongCoBan    Int?
+  SoGio         Int?
+  HoaHong       Float?
+  ThanhTien     Int?
+  ThoiGian      DateTime? @db.Timestamp(6)
+  NhanVien      NhanVien? @relation(fields: [NhanVien_ID], references: [NhanVien_ID], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model PhieuNhap {
+  PhieuNhap_ID     String             @id @db.VarChar(255)
+  NhanVien_ID      String?            @db.VarChar(255)
+  NhaCungCap_ID    String?            @db.VarChar(255)
+  ThoiGian         DateTime?          @db.Timestamp(6)
+  ChiTietPhieuNhap ChiTietPhieuNhap[]
+  NhaCungCap       NhaCungCap?        @relation(fields: [NhaCungCap_ID], references: [NhaCungCap_ID], onDelete: NoAction, onUpdate: NoAction)
+  NhanVien         NhanVien?          @relation(fields: [NhanVien_ID], references: [NhanVien_ID], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model PhieuXuatKho {
+  PhieuXuatKho_ID     String                @id @db.VarChar(255)
+  NhanVien_ID         String?               @db.VarChar(255)
+  Kho_ID              String?               @db.VarChar(255)
+  ThoiGian            DateTime?             @db.Timestamp(6)
+  ChiTietPhieuXuatKho ChiTietPhieuXuatKho[]
+  Kho                 Kho?                  @relation(fields: [Kho_ID], references: [Kho_ID], onDelete: NoAction, onUpdate: NoAction)
+  NhanVien            NhanVien?             @relation(fields: [NhanVien_ID], references: [NhanVien_ID], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model QuanLy {
+  QuanLi_ID String  @id @db.VarChar(255)
+  Email     String? @db.VarChar(255) @unique
+  MatKhau   String? @db.VarChar(255)
+}

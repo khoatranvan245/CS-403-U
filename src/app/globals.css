@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.subNavbar {
+  display: none;
+}
+
+.navItem:hover > .subNavbar{
+  display: block;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
