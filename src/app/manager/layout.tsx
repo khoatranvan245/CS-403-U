@@ -1,17 +1,17 @@
 import Link from "next/link"
-import { ReactNode } from "react"
-import { logout } from "../login/actions"
-export default function Layout({ children }: { children: ReactNode }) {
+import { logout } from "../login/actions";
+
+const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <div className="w-full h-[52px] text-white bg-blue-500 flex px-5 navBar">
-        <div className="">
-          <Link className="inline-flex h-full px-[30px] items-center hover:bg-blue-700 rounded" href="">Tổng quát </Link>
+        <div>
+          <Link className="inline-flex h-full px-[30px] items-center hover:bg-blue-700 rounded" href="/manager">Tổng quát </Link>
 
           <div className="inline-flex h-full px-[30px] items-center hover:bg-blue-700 rounded relative navItem">
             Hàng hóa
             <div className="flex flex-col bg-blue-700 absolute w-[200px] top-[100%] left-0 py-3 rounded subNavbar">
-              <Link className="inline-flex h-[40px] px-[30px] items-center hover:bg-blue-500 w-full" href="">Danh mục</Link>
+              <Link className="inline-flex h-[40px] px-[30px] items-center hover:bg-blue-500 w-full" href="/manager/item">Danh mục</Link>
               <Link className="inline-flex h-[40px] px-[30px] items-center hover:bg-blue-500 w-full" href="">Thiết lập giá</Link>
               <Link className="inline-flex h-[40px] px-[30px] items-center hover:bg-blue-500 w-full" href="">Kiểm kho</Link>
             </div>
@@ -62,8 +62,10 @@ export default function Layout({ children }: { children: ReactNode }) {
           </div>
         </div>
       </div>
+
       {children}
     </>
   )
 }
 
+export default Layout
