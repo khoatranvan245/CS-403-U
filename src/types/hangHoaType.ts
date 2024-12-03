@@ -8,6 +8,10 @@ type hangHoaType = {
   NhaCungCap_ID: string;
   NhomHang_ID: string;
   DonViTinh: string;
+  NhomHang: {
+    NhomHang_ID: string
+    TenNhomHang: string
+  }
 };
 
 export default hangHoaType;

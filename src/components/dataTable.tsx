@@ -1,11 +1,16 @@
 import prisma from "@/lib/prismaClient"
 import ItemRow from "./itemRow"
 import tableType from "@/types/tableType"
+
 const DataTable = async ({ tableType }: { tableType: tableType }) => {
   let data
   switch (tableType) {
     case "hangHoa":
-      data = await prisma.hangHoa.findMany({})
+      data = await prisma.hangHoa.findMany({
+        include: {
+          NhomHang: true
+        },
+      })
       break
     case "phieuNhap":
       data = await prisma.phieuNhap.findMany({})

@@ -44,7 +44,6 @@ model ChiTietPhieuXuatKho {
 model HangHoa {
   HangHoa_ID          String                @id @db.VarChar(255)
   TenHang             String?               @db.VarChar(255)
-  ThuongHieu          String?               @db.VarChar(255)
   GiaBan              Int?
   GiaVon              Int?
   TonKho              Int?
