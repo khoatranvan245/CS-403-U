@@ -6,7 +6,7 @@ import ItemSubRow from "./itemSubRow"
 
 const ItemRow = ({ index, tableData, tableType }: { tableData: any, index: number, tableType: tableType }) => {
   const [open, setOpen] = useState(false)
-  let hangHoaData = tableData as hangHoaType
+  const hangHoaData = tableData as hangHoaType
   let rowData: (string | number)[] = []
   let subRowData: (string | number)[] = []
   switch (tableType) {
