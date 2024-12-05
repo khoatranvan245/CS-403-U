@@ -1,6 +1,7 @@
 import prisma from "@/lib/prismaClient"
 import ItemRow from "./itemRow"
 import tableType from "@/types/tableType"
+import Link from "next/link"
 
 const DataTable = async ({ tableType }: { tableType: tableType }) => {
   let data
@@ -19,14 +20,13 @@ const DataTable = async ({ tableType }: { tableType: tableType }) => {
       data = await prisma.phieuXuatKho.findMany({})
       break
   }
-  console.log(data)
   return (
     <>
       <div className="w-[90%] mx-auto mt-2">
         <div className="flex justify-between">
           <input type="text" placeholder="Tìm kiếm" className="w-1/2 border border-black rounded pl-4" />
           <div className="flex gap-3">
-            <button className="bg-green-400 text-white p-3 rounded hover:bg-green-500">Thêm mới</button>
+            <Link href={"/manager/item/add"} className="bg-green-400 text-white p-3 rounded hover:bg-green-500">Thêm mới</Link>
             <button className="bg-green-400 text-white p-3 rounded hover:bg-green-500">Import</button>
             <button className="bg-green-400 text-white p-3 rounded hover:bg-green-500">Xuất file</button>
           </div>

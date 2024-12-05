@@ -13,8 +13,7 @@ const Login = () => {
           <input type="password" placeholder="Mật khẩu" className="border-gray-200 border-b-2 py-2 my-3 focus:border-blue-500" name="password" />
           {formState?.errors.email && <h1 className="text-red-500">{formState.errors.email}</h1>}
           <div className="w-3/4 h-[60px] flex mx-auto mt-7">
-            <button type="submit" className="flex-1 bg-blue-500 text-white text-base font-medium hover:bg-blue-700">Quản lí</button>
-            <button type="submit" className="flex-1 bg-green-500 text-white text-base font-medium hover:bg-green-700">Bán hàng</button>
+            <button type="submit" className="flex-1 bg-blue-500 text-white text-base font-medium hover:bg-blue-700">Xác nhận</button>
           </div>
         </form>
       </div>

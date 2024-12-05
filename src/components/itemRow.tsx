@@ -11,7 +11,7 @@ const ItemRow = ({ index, tableData, tableType }: { tableData: any, index: numbe
   let subRowData: (string | number)[] = []
   switch (tableType) {
     case "hangHoa":
-      rowData = [hangHoaData.TenHang, hangHoaData.HangHoa_ID, hangHoaData.GiaBan, hangHoaData.GiaVon, hangHoaData.TonKho]
+      rowData = [hangHoaData.HangHoa_ID, hangHoaData.TenHang, hangHoaData.GiaBan, hangHoaData.GiaVon, hangHoaData.TonKho]
       subRowData = [...rowData, hangHoaData.NhomHang.TenNhomHang, hangHoaData.Kho_ID, hangHoaData.NhaCungCap_ID]
   }
   return <div onClick={() => setOpen(!open)}>
