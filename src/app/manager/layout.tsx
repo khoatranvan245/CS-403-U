@@ -20,7 +20,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           <div className="inline-flex h-full px-[30px] items-center hover:bg-blue-700 rounded relative navItem">
             Giao dịch
             <div className="flex flex-col bg-blue-700 absolute w-[200px] top-[100%] left-0 py-3 rounded subNavbar">
-              <Link className="inline-flex h-[40px] px-[30px] items-center hover:bg-blue-500 w-full" href="">Hóa đơn</Link>
+              <Link className="inline-flex h-[40px] px-[30px] items-center hover:bg-blue-500 w-full" href="/manager/bill">Hóa đơn</Link>
               <Link className="inline-flex h-[40px] px-[30px] items-center hover:bg-blue-500 w-full" href="">Nhập hàng</Link>
               <Link className="inline-flex h-[40px] px-[30px] items-center hover:bg-blue-500 w-full" href="">Trả hàng</Link>
             </div>
