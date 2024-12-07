@@ -3,16 +3,24 @@ import hangHoaType from "@/types/hangHoaType"
 import tableType from "@/types/tableType"
 import { useState } from "react"
 import ItemSubRow from "./itemSubRow"
+import hoaDonType from "@/types/hoaDonType"
+import formatDate from "@/lib/formatDate"
 
 const ItemRow = ({ index, tableData, tableType }: { tableData: any, index: number, tableType: tableType }) => {
   const [open, setOpen] = useState(false)
   const hangHoaData = tableData as hangHoaType
-  let rowData: (string | number)[] = []
+  const hoaDonData = tableData as hoaDonType
+  let rowData: Array<any> = []
   let subRowData: (string | number)[] = []
   switch (tableType) {
     case "hangHoa":
       rowData = [hangHoaData.HangHoa_ID, hangHoaData.TenHang, hangHoaData.GiaBan, hangHoaData.GiaVon, hangHoaData.TonKho]
       subRowData = [...rowData, hangHoaData.NhomHang.TenNhomHang, hangHoaData.Kho_ID, hangHoaData.NhaCungCap_ID]
+      break
+    case "hoaDon":
+      rowData = [hoaDonData.HoaDon_ID, hoaDonData.KhachHang_ID, hoaDonData.NhanVien_ID, formatDate(hoaDonData.ThoiGian), hoaDonData.TongTien]
+      subRowData = []
+      break
   }
   return <div onClick={() => setOpen(!open)}>
     <div

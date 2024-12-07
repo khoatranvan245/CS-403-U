@@ -1,5 +1,6 @@
 "use server";
 import prisma from "@/lib/prismaClient";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 const itemSchema = z.object({
   HangHoa_ID: z.string(),
@@ -33,6 +34,7 @@ const addItem = async (prevState: any, formData: FormData) => {
         TonKho: Number(result.data.TonKho),
       },
     });
+    revalidatePath("/manager/item")
     return {success: "Thêm hàng hóa thành công"}
   } catch {
     return { failed: "Thêm hàng hóa thất bại" }

@@ -1,4 +1,4 @@
-type tableType = "hangHoa" | "phieuNhap" | "phieuXuatKho"
+type tableType = "hangHoa" | "phieuNhap" | "hoaDon"
 
 export default tableType
 
