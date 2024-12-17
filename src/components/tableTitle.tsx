@@ -9,6 +9,9 @@ const TableTitle = ({ tableType }: { tableType: tableType }) => {
     case "hoaDon":
       titles = ["Mã hóa đơn", "Khách hàng", "Nhân viên", "Ngày", "Tổng tiền"]
       break
+    case "chiTietHoaDon":
+      titles = ["Mã hàng hóa", "Tên hàng hóa", "Số lượng", "Đơn giá", "Thành tiền"]
+      break
   }
   return <div className="grid grid-cols-[1fr,2fr,1fr,1fr,1fr] bg-blue-200 py-3 mt-3">
     {titles.map((item, index) => <p className="text-center font-bold" key={index}>{item}</p>)}

@@ -5,7 +5,7 @@ import Link from "next/link"
 import TableTitle from "./tableTitle"
 
 const DataTable = async ({ tableType }: { tableType: tableType }) => {
-  let data
+  let data: any[] = []
   switch (tableType) {
     case "hangHoa":
       data = await prisma.hangHoa.findMany({
@@ -18,11 +18,19 @@ const DataTable = async ({ tableType }: { tableType: tableType }) => {
       data = await prisma.phieuNhap.findMany({})
       break
     case "hoaDon":
-      data = await prisma.hoaDon.findMany({})
+      data = await prisma.hoaDon.findMany({
+        include: {
+          ChiTietHoaDon: {
+            include: {
+              HangHoa: true
+            }
+          },
+          KhachHang: true,
+        }
+      })
       break
   }
 
-  console.log(data)
   return (
     <>
       <div className="w-[90%] mx-auto mt-2">
